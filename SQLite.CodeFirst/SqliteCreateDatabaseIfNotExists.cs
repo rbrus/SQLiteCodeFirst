@@ -14,9 +14,13 @@ namespace SQLite.CodeFirst
             string databseFilePath = GetDatabasePathFromContext(context);
 
             bool dbExists = File.Exists(databseFilePath);
+            var dbFileInfo = new FileInfo(databseFilePath);
+            long dbFileSize = dbFileInfo.Length;
+
             if (dbExists)
             {
-                return;
+                if(dbFileSize != 0)
+                    return;
             }
 
             base.InitializeDatabase(context);
